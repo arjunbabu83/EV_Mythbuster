@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EV Myth Buster</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #2196F3, #4CAF50);
+            text-align: center;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin: 20px 0;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+        }
+        .myth-cards {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .card {
+            width: 250px;
+            height: 150px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+        }
+        .card:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+        .card-front, .card-back {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            backface-visibility: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            padding: 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+        }
+        .card-front {
+            background: #ff5722;
+        }
+        .card-back {
+            background: #4CAF50;
+            transform: rotateY(180deg);
+        }
+        .quiz {
+            margin-top: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .question {
+            font-size: 1.5rem;
+        }
+        .quiz button {
+            background: #FFC107;
+            border: none;
+            padding: 10px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚗 EV Myth Buster ⚡</h1>
+        <div class="myth-cards">
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">EVs are more polluting than gasoline cars!</div>
+                    <div class="card-back">EVs have lower lifetime emissions, even with battery production.</div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">EV batteries don’t last long.</div>
+                    <div class="card-back">Most EV batteries last 10+ years with proper care.</div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">EVs are slow and boring.</div>
+                    <div class="card-back">EVs have instant torque and can outperform many gas cars.</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="quiz">
+            <h2>🔍 Test Your Knowledge!</h2>
+            <p class="question">Do EVs have lower maintenance costs?</p>
+            <button onclick="checkAnswer(true)">Yes</button>
+            <button onclick="checkAnswer(false)">No</button>
+            <p id="quiz-result"></p>
+        </div>
+    </div>
+    
+    <script>
+        gsap.from("h1", { y: -50, opacity: 0, duration: 1, ease: "bounce" });
+        gsap.from(".myth-cards", { opacity: 0, duration: 1, delay: 0.5, stagger: 0.3 });
+
+        function checkAnswer(answer) {
+            let result = document.getElementById("quiz-result");
+            if (answer) {
+                result.innerHTML = "✅ Correct! EVs have fewer moving parts, reducing maintenance costs.";
+                result.style.color = "green";
+            } else {
+                result.innerHTML = "❌ Incorrect! EVs generally require less maintenance than gas cars.";
+                result.style.color = "red";
+            }
+        }
+    </script>
+</body>
+</html>
