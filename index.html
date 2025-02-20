@@ -1,85 +1,232 @@
-import { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EV Myth Busters</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #F4F4F4;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
 
-const myths = [
-  {
-    myth: "EVs Have Limited Range",
-    reality: "Modern EVs have significantly improved ranges, with many models offering 250–400+ miles on a single charge. Tesla Model S Long Range: 405 miles, Lucid Air Dream Edition: 520 miles."
-  },
-  {
-    myth: "EVs Are Worse for the Environment",
-    reality: "While battery production has an impact, EVs have a lower overall carbon footprint over their lifetime due to zero tailpipe emissions and increasing renewable energy usage."
-  },
-  {
-    myth: "EVs Are Too Expensive",
-    reality: "There are many affordable EVs, and total ownership cost is lower due to reduced maintenance and fuel costs. Nissan Leaf starts at $28,000."
-  },
-  {
-    myth: "Charging an EV Takes Too Long",
-    reality: "With DC fast chargers, EVs can charge up to 80% in 20–40 minutes. Home charging is convenient for daily use."
-  },
-  {
-    myth: "EVs Are Not Fun to Drive",
-    reality: "EVs have instant torque and fast acceleration. Tesla Model S Plaid does 0–60 mph in 1.99 seconds."
-  },
-  {
-    myth: "There Aren’t Enough Charging Stations",
-    reality: "Charging networks are expanding rapidly, with over 60,000 public stations in the U.S. as of 2023."
-  },
-  {
-    myth: "EV Batteries Don’t Last Long",
-    reality: "Most EV batteries last 10–20 years, with manufacturers offering warranties of 8–10 years."
-  },
-  {
-    myth: "EVs Can’t Handle Cold Weather",
-    reality: "Modern EVs include battery pre-conditioning and heat pumps, ensuring efficient performance in cold climates."
-  }
-];
+    header {
+      background: linear-gradient(135deg, #118AB2, #06D6A0);
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
 
-export default function EVMythBuster() {
-  const [flipped, setFlipped] = useState(Array(myths.length).fill(false));
+    h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
 
-  const flipCard = (index) => {
-    setFlipped((prev) => {
-      const newFlipped = [...prev];
-      newFlipped[index] = !newFlipped[index];
-      return newFlipped;
-    });
-  };
+    p {
+      margin: 5px 0;
+    }
 
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
-      {myths.map((item, index) => (
-        <motion.div
-          key={index}
-          whileHover={{ scale: 1.05 }}
-          onClick={() => flipCard(index)}
-          className="cursor-pointer"
-        >
-          <Card className="relative h-40 w-full shadow-lg">
-            <CardContent className="flex items-center justify-center h-full text-center">
-              {flipped[index] ? (
-                <p className="text-green-600 font-semibold">{item.reality}</p>
-              ) : (
-                <p className="text-red-500 font-bold">{item.myth}</p>
-              )}
-            </CardContent>
-          </Card>
-        </motion.div>
-      ))}
-      
-      {/* Quiz Section */}
-      <div className="col-span-full mt-8 p-6 bg-gray-100 rounded-lg shadow-md">
-        <h2 className="text-xl font-bold mb-4">Test Your Understanding</h2>
-        <ol className="list-decimal pl-6">
-          <li>What is one advantage EVs have over gas cars in terms of long-term ownership costs?</li>
-          <li>How long do most EV batteries last?</li>
-          <li>Why do EVs still have a lower carbon footprint even if electricity comes from fossil fuels?</li>
-        </ol>
-        <Button className="mt-4">Submit Answers</Button>
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .flip-card {
+      background-color: transparent;
+      width: 300px;
+      height: 200px;
+      perspective: 1000px;
+    }
+
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .flip-card:hover .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .flip-card-front {
+      color: white;
+    }
+
+    .flip-card-back {
+      background-color: #FFD166;
+      color: #333;
+      transform: rotateY(180deg);
+    }
+
+    .quiz {
+      background: #EF476F;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .quiz h2 {
+      margin-top: 0;
+    }
+
+    .question {
+      margin: 15px 0;
+    }
+
+    input {
+      padding: 10px;
+      width: 80%;
+      max-width: 300px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    button {
+      background: #06D6A0;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    button:hover {
+      background: #118AB2;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    footer {
+      background: #073B4C;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>EV Myth Busters</h1>
+    <p>Debunking Common Misconceptions About Electric Vehicles</p>
+  </header>
+
+  <main>
+    <div class="card-container">
+      <!-- Myth 1 -->
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front" style="background-color: #FF6F61;">
+            <h2>Myth 1</h2>
+            <p>EVs Have Limited Range</p>
+          </div>
+          <div class="flip-card-back" style="background-color: #FFD166;">
+            <h3>Reality</h3>
+            <p>Modern EVs offer 250–400+ miles on a single charge. Examples: Tesla Model S (405 miles), Lucid Air (520 miles).</p>
+          </div>
+        </div>
       </div>
+
+      <!-- Myth 2 -->
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front" style="background-color: #06D6A0;">
+            <h2>Myth 2</h2>
+            <p>EVs Are Worse for the Environment</p>
+          </div>
+          <div class="flip-card-back" style="background-color: #118AB2;">
+            <h3>Reality</h3>
+            <p>EVs have a lower carbon footprint due to zero tailpipe emissions and renewable energy use.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Myth 3 -->
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front" style="background-color: #EF476F;">
+            <h2>Myth 3</h2>
+            <p>EVs Are Too Expensive</p>
+          </div>
+          <div class="flip-card-back" style="background-color: #FFD166;">
+            <h3>Reality</h3>
+            <p>Affordable options exist, and lower maintenance and fuel costs make EVs cost-effective.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add more myths here following the same structure -->
     </div>
-  );
-}
+
+    <!-- Quiz Section -->
+    <section class="quiz">
+      <h2>Test Your Understanding</h2>
+      <div class="question">
+        <p>1. What is the range of a Tesla Model S Long Range?</p>
+        <input type="text" id="q1" placeholder="Your answer">
+      </div>
+      <div class="question">
+        <p>2. Why are EVs better for the environment?</p>
+        <input type="text" id="q2" placeholder="Your answer">
+      </div>
+      <div class="question">
+        <p>3. What is the starting price of the Tata Nexon EV in India?</p>
+        <input type="text" id="q3" placeholder="Your answer">
+      </div>
+      <button onclick="checkAnswers()">Submit</button>
+      <p id="result"></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Created with ❤️ by EV Enthusiasts</p>
+  </footer>
+
+  <script>
+    function checkAnswers() {
+      const q1 = document.getElementById('q1').value.toLowerCase();
+      const q2 = document.getElementById('q2').value.toLowerCase();
+      const q3 = document.getElementById('q3').value.toLowerCase();
+
+      let score = 0;
+
+      if (q1.includes("405")) score++;
+      if (q2.includes("zero tailpipe emissions") || q2.includes("renewable energy")) score++;
+      if (q3.includes("14.49") || q3.includes("14.49 lakh")) score++;
+
+      const result = document.getElementById('result');
+      result.textContent = `You scored ${score} out of 3!`;
+      result.style.color = score === 3 ? "#06D6A0" : "#EF476F";
+    }
+  </script>
+</body>
+</html>
