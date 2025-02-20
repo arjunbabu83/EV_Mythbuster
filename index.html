@@ -1,157 +1,85 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EV Myth Buster</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #2196F3, #4CAF50);
-            text-align: center;
-            color: white;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            width: 80%;
-            margin: auto;
-            padding: 20px;
-        }
-        h1 {
-            font-size: 2.5rem;
-            margin: 20px 0;
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-        }
-        .myth-cards {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-        .card {
-            width: 250px;
-            height: 150px;
-            perspective: 1000px;
-            cursor: pointer;
-        }
-        .card-inner {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.5s;
-        }
-        .card:hover .card-inner {
-            transform: rotateY(180deg);
-        }
-        .card-front, .card-back {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            backface-visibility: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 10px;
-            font-size: 1.2rem;
-            padding: 10px;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-        }
-        .card-front {
-            background: #ff5722;
-        }
-        .card-back {
-            background: #4CAF50;
-            transform: rotateY(180deg);
-        }
-        .quiz {
-            margin-top: 30px;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 20px;
-            border-radius: 10px;
-        }
-        .question {
-            font-size: 1.5rem;
-        }
-        .quiz button {
-            background: #FFC107;
-            border: none;
-            padding: 10px;
-            margin: 10px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>🚗 EV Myth Buster ⚡</h1>
-        <div class="myth-cards">
-            <div class="card">
-                <div class="card-inner">
-                    <div class="card-front">EVs are more polluting than gasoline cars!</div>
-                    <div class="card-back">EVs have lower lifetime emissions, even with battery production.</div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-inner">
-                    <div class="card-front">EV batteries don’t last long.</div>
-                    <div class="card-back">Most EV batteries last 10+ years with proper care.</div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-inner">
-                    <div class="card-front">EVs are slow and boring.</div>
-                    <div class="card-back">EVs have instant torque and can outperform many gas cars.</div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-inner">
-                    <div class="card-front">EVs take too long to charge.</div>
-                    <div class="card-back">Fast charging stations can charge an EV in under 30 minutes.</div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-inner">
-                    <div class="card-front">EVs don’t have enough range.</div>
-                    <div class="card-back">Modern EVs can travel 300+ miles on a single charge.</div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-inner">
-                    <div class="card-front">EVs are too expensive for most people.</div>
-                    <div class="card-back">Prices are dropping, and government incentives help reduce costs.</div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="quiz">
-            <h2>🔍 Test Your Knowledge!</h2>
-            <p class="question">Do EVs have lower maintenance costs?</p>
-            <button onclick="checkAnswer(true)">Yes</button>
-            <button onclick="checkAnswer(false)">No</button>
-            <p id="quiz-result"></p>
-        </div>
-    </div>
-    
-    <script>
-        gsap.from("h1", { y: -50, opacity: 0, duration: 1, ease: "bounce" });
-        gsap.from(".myth-cards", { opacity: 0, duration: 1, delay: 0.5, stagger: 0.3 });
+import { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
 
-        function checkAnswer(answer) {
-            let result = document.getElementById("quiz-result");
-            if (answer) {
-                result.innerHTML = "✅ Correct! EVs have fewer moving parts, reducing maintenance costs.";
-                result.style.color = "green";
-            } else {
-                result.innerHTML = "❌ Incorrect! EVs generally require less maintenance than gas cars.";
-                result.style.color = "red";
-            }
-        }
-    </script>
-</body>
-</html>
+const myths = [
+  {
+    myth: "EVs Have Limited Range",
+    reality: "Modern EVs have significantly improved ranges, with many models offering 250–400+ miles on a single charge. Tesla Model S Long Range: 405 miles, Lucid Air Dream Edition: 520 miles."
+  },
+  {
+    myth: "EVs Are Worse for the Environment",
+    reality: "While battery production has an impact, EVs have a lower overall carbon footprint over their lifetime due to zero tailpipe emissions and increasing renewable energy usage."
+  },
+  {
+    myth: "EVs Are Too Expensive",
+    reality: "There are many affordable EVs, and total ownership cost is lower due to reduced maintenance and fuel costs. Nissan Leaf starts at $28,000."
+  },
+  {
+    myth: "Charging an EV Takes Too Long",
+    reality: "With DC fast chargers, EVs can charge up to 80% in 20–40 minutes. Home charging is convenient for daily use."
+  },
+  {
+    myth: "EVs Are Not Fun to Drive",
+    reality: "EVs have instant torque and fast acceleration. Tesla Model S Plaid does 0–60 mph in 1.99 seconds."
+  },
+  {
+    myth: "There Aren’t Enough Charging Stations",
+    reality: "Charging networks are expanding rapidly, with over 60,000 public stations in the U.S. as of 2023."
+  },
+  {
+    myth: "EV Batteries Don’t Last Long",
+    reality: "Most EV batteries last 10–20 years, with manufacturers offering warranties of 8–10 years."
+  },
+  {
+    myth: "EVs Can’t Handle Cold Weather",
+    reality: "Modern EVs include battery pre-conditioning and heat pumps, ensuring efficient performance in cold climates."
+  }
+];
+
+export default function EVMythBuster() {
+  const [flipped, setFlipped] = useState(Array(myths.length).fill(false));
+
+  const flipCard = (index) => {
+    setFlipped((prev) => {
+      const newFlipped = [...prev];
+      newFlipped[index] = !newFlipped[index];
+      return newFlipped;
+    });
+  };
+
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
+      {myths.map((item, index) => (
+        <motion.div
+          key={index}
+          whileHover={{ scale: 1.05 }}
+          onClick={() => flipCard(index)}
+          className="cursor-pointer"
+        >
+          <Card className="relative h-40 w-full shadow-lg">
+            <CardContent className="flex items-center justify-center h-full text-center">
+              {flipped[index] ? (
+                <p className="text-green-600 font-semibold">{item.reality}</p>
+              ) : (
+                <p className="text-red-500 font-bold">{item.myth}</p>
+              )}
+            </CardContent>
+          </Card>
+        </motion.div>
+      ))}
+      
+      {/* Quiz Section */}
+      <div className="col-span-full mt-8 p-6 bg-gray-100 rounded-lg shadow-md">
+        <h2 className="text-xl font-bold mb-4">Test Your Understanding</h2>
+        <ol className="list-decimal pl-6">
+          <li>What is one advantage EVs have over gas cars in terms of long-term ownership costs?</li>
+          <li>How long do most EV batteries last?</li>
+          <li>Why do EVs still have a lower carbon footprint even if electricity comes from fossil fuels?</li>
+        </ol>
+        <Button className="mt-4">Submit Answers</Button>
+      </div>
+    </div>
+  );
+}
