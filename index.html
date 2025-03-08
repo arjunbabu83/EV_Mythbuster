@@ -1,356 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EV Myth Busters</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      background-color: #F4F4F4;
-      margin: 0;
-      padding: 0;
-      color: #333;
-    }
-
-    header {
-      background: linear-gradient(135deg, #118AB2, #06D6A0);
-      color: white;
-      text-align: center;
-      padding: 20px;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: 2.5rem;
-    }
-
-    p {
-      margin: 5px 0;
-    }
-
-    .card-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      padding: 20px;
-    }
-
-    .flip-card {
-      background-color: transparent;
-      width: 300px;
-      height: 200px;
-      perspective: 1000px;
-    }
-
-    .flip-card-inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      text-align: center;
-      transition: transform 0.6s;
-      transform-style: preserve-3d;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    .flip-card:hover .flip-card-inner {
-      transform: rotateY(180deg);
-    }
-
-    .flip-card-front, .flip-card-back {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      backface-visibility: hidden;
-      border-radius: 10px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
-
-    .flip-card-front {
-      color: white;
-    }
-
-    .flip-card-back {
-      background-color: #FFD166;
-      color: #333;
-      transform: rotateY(180deg);
-    }
-
-    .quiz {
-      background: #EF476F;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-
-    .quiz h2 {
-      margin-top: 0;
-    }
-
-    .question {
-      margin: 15px 0;
-    }
-
-    input {
-      padding: 10px;
-      width: 80%;
-      max-width: 300px;
-      border: none;
-      border-radius: 5px;
-    }
-
-    button {
-      background: #06D6A0;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 1rem;
-    }
-
-    button:hover {
-      background: #118AB2;
-    }
-
-    #result {
-      margin-top: 20px;
-      font-weight: bold;
-    }
-
-    footer {
-      background: #073B4C;
-      color: white;
-      text-align: center;
-      padding: 10px;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EV Myth Busters</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+        header {
+            text-align: center;
+            padding: 30px;
+            background-color: #1a3c34;
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        header:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+        .myth {
+            background-color: white;
+            margin: 20px 0;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .myth:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+        }
+        .myth h2 {
+            color: #c0392b;
+            margin-top: 0;
+            font-size: 1.5em;
+            transition: color 0.3s ease;
+        }
+        .myth:hover h2 {
+            color: #e74c3c;
+        }
+        .reality {
+            background-color: #e8f5e9;
+            padding: 20px;
+            border-left: 5px solid #2ecc71;
+            margin-top: 15px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .myth:hover .reality {
+            background-color: #d4edda;
+            border-color: #27ae60;
+        }
+        .myth-number {
+            font-weight: bold;
+            color: #7f8c8d;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9em;
+            transition: color 0.3s ease;
+        }
+        footer:hover {
+            color: #333;
+        }
+        .conclusion {
+            background-color: #fff3e0;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .conclusion:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>EV Myth Busters</h1>
-    <p>Debunking Common Misconceptions About Electric Vehicles</p>
-  </header>
+    <header>
+        <h1>EV Myth Busters</h1>
+        <p>Debunking Common Misconceptions About Electric Vehicles</p>
+    </header>
 
-  <main>
-    <div class="card-container">
-      <!-- Myth 1 -->
-      <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-card-front" style="background-color: #FF6F61;">
-            <h2>Myth 1</h2>
-            <p>EVs Have Limited Range</p>
-          </div>
-          <div class="flip-card-back" style="background-color: #FFD166;">
-            <h3>Reality</h3>
-            <p>Modern EVs offer 250–400+ miles on a single charge. Examples: Tesla Model S (405 miles), Lucid Air (520 miles).</p>
-          </div>
+    <main>
+        <section class="myth">
+            <h2><span class="myth-number">Myth 1:</span> EVs Have Limited Range</h2>
+            <p>Many believe electric vehicles can't go far on a single charge.</p>
+            <div class="reality">
+                <strong>Reality:</strong> Modern EVs offer ranges that are more than sufficient for daily use. Many models now provide ranges between 200-300 miles on a single charge, with some high-end models exceeding 300 miles. For most people, this range is more than enough for daily commuting and even longer trips.
+            </div>
+        </section>
+
+        <section class="myth">
+            <h2><span class="myth-number">Myth 2:</span> EVs Are Too Expensive</h2>
+            <p>People think EVs cost too much compared to gas vehicles.</p>
+            <div class="reality">
+                <strong>Reality:</strong> While the upfront cost of EVs can be higher than traditional internal combustion engine (ICE) vehicles, the total cost of ownership is often lower. EVs have fewer moving parts, which means lower maintenance costs. Additionally, electricity is generally cheaper than gasoline, leading to savings on fuel. Many governments also offer incentives and tax rebates for EV purchases, further reducing the effective cost.
+            </div>
+        </section>
+
+        <section class="myth">
+            <h2><span class="myth-number">Myth 3:</span> EVs Are Not Environmentally Friendly Because of Battery Production</h2>
+            <p>Some claim EVs harm the environment due to battery manufacturing.</p>
+            <div class="reality">
+                <strong>Reality:</strong> While it's true that battery production has an environmental impact, studies have shown that over their lifetime, EVs are still more environmentally friendly than ICE vehicles. This is due to their higher efficiency and the fact that they produce zero tailpipe emissions. As renewable energy sources become more prevalent, the environmental benefits of EVs will only increase.
+            </div>
+        </section>
+
+        <section class="myth">
+            <h2><span class="myth-number">Myth 4:</span> There Are Not Enough Charging Stations</h2>
+            <p>People worry about the lack of charging infrastructure.</p>
+            <div class="reality">
+                <strong>Reality:</strong> The charging infrastructure for EVs is rapidly expanding. In many countries, governments and private companies are investing heavily in building more charging stations. Additionally, most EV charging is done at home overnight, making public charging stations less critical for daily use.
+            </div>
+        </section>
+
+        <section class="myth">
+            <h2><span class="myth-number">Myth 5:</span> EVs Are Slow and Boring to Drive</h2>
+            <p>Some think EVs lack excitement and performance.</p>
+            <div class="reality">
+                <strong>Reality:</strong> EVs are known for their instant torque, which provides quick acceleration and a responsive driving experience. Many EVs offer performance that rivals or exceeds that of traditional sports cars. The driving experience is often described as smooth and quiet, which many drivers find enjoyable.
+            </div>
+        </section>
+
+        <section class="myth">
+            <h2><span class="myth-number">Myth 6:</span> EV Batteries Degrade Quickly</h2>
+            <p>There's concern that EV batteries wear out fast.</p>
+            <div class="reality">
+                <strong>Reality:</strong> Modern EV batteries are designed to last a long time. Most manufacturers offer warranties for their batteries that cover 8 years or 100,000 miles, and many batteries retain a significant portion of their capacity even after that period. Proper care and maintenance can further extend the life of an EV battery.
+            </div>
+        </section>
+
+        <section class="myth">
+            <h2><span class="myth-number">Myth 7:</span> EVs Are Not Suitable for Cold Weather</h2>
+            <p>People believe EVs perform poorly in cold climates.</p>
+            <div class="reality">
+                <strong>Reality:</strong> While it's true that cold weather can reduce the range of an EV, advancements in battery technology and thermal management systems have mitigated this issue. Many EVs now come with features like battery pre-conditioning, which helps maintain optimal battery temperature and performance in cold weather.
+            </div>
+        </section>
+
+        <section class="myth">
+            <h2><span class="myth-number">Myth 8:</span> The Grid Can't Handle Widespread EV Adoption</h2>
+            <p>Some worry the power grid will collapse under EV demand.</p>
+            <div class="reality">
+                <strong>Reality:</strong> The electrical grid is more than capable of handling the increased load from EVs, especially since most charging is done overnight when demand is low. Additionally, smart grid technologies and time-of-use pricing can help manage and distribute the load more efficiently.
+            </div>
+        </section>
+
+        <section class="myth">
+            <h2><span class="myth-number">Myth 9:</span> EVs Are Not Safe</h2>
+            <p>There's a belief that EVs pose unique safety risks.</p>
+            <div class="reality">
+                <strong>Reality:</strong> EVs undergo the same rigorous safety testing as traditional vehicles and often have additional safety features due to their design. The heavy battery packs in EVs can actually make them more stable and less prone to rollovers. Additionally, EVs are designed with multiple safety systems to protect the battery and electrical components.
+            </div>
+        </section>
+
+        <section class="myth">
+            <h2><span class="myth-number">Myth 10:</span> EVs Are Just a Fad</h2>
+            <p>Some see EVs as a passing trend.</p>
+            <div class="reality">
+                <strong>Reality:</strong> The shift towards electric vehicles is driven by global efforts to reduce greenhouse gas emissions and combat climate change. Major automakers are investing billions in EV development, and many countries have set targets to phase out ICE vehicles. EVs are a key component of the future of transportation.
+            </div>
+        </section>
+
+        <div class="conclusion">
+            <h3>Conclusion</h3>
+            <p>By understanding the facts, it's clear that many of the common myths about EVs are either outdated or based on misinformation. As technology continues to advance, EVs are becoming an increasingly viable and attractive option for consumers.</p>
         </div>
-      </div>
+    </main>
 
-      <!-- Myth 2 -->
-      <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-card-front" style="background-color: #06D6A0;">
-            <h2>Myth 2</h2>
-            <p>EVs Are Worse for the Environment</p>
-          </div>
-          <div class="flip-card-back" style="background-color: #118AB2;">
-            <h3>Reality</h3>
-            <p>EVs have a lower carbon footprint due to zero tailpipe emissions and renewable energy use.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Myth 3 -->
-      <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-card-front" style="background-color: #EF476F;">
-            <h2>Myth 3</h2>
-            <p>EVs Are Too Expensive</p>
-          </div>
-          <div class="flip-card-back" style="background-color: #FFD166;">
-            <h3>Reality</h3>
-            <p>Affordable options exist, and lower maintenance and fuel costs make EVs cost-effective.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Myth 4 -->
-      <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-card-front" style="background-color: #118AB2;">
-            <h2>Myth 4</h2>
-            <p>Charging an EV Takes Too Long</p>
-          </div>
-          <div class="flip-card-back" style="background-color: #06D6A0;">
-            <h3>Reality</h3>
-            <p>Fast chargers can charge an EV to 80% in 20–40 minutes, and home charging is convenient overnight.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Myth 5 -->
-      <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-card-front" style="background-color: #FFD166;">
-            <h2>Myth 5</h2>
-            <p>EVs Are Not Fun to Drive</p>
-          </div>
-          <div class="flip-card-back" style="background-color: #EF476F;">
-            <h3>Reality</h3>
-            <p>EVs offer instant torque, making them faster and smoother than gas-powered cars.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Myth 6 -->
-      <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-card-front" style="background-color: #073B4C;">
-            <h2>Myth 6</h2>
-            <p>There Aren’t Enough Charging Stations</p>
-          </div>
-          <div class="flip-card-back" style="background-color: #118AB2;">
-            <h3>Reality</h3>
-            <p>Charging infrastructure is growing rapidly, with over 60,000 public chargers in the U.S. alone.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Myth 7 -->
-      <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-card-front" style="background-color: #FF6F61;">
-            <h2>Myth 7</h2>
-            <p>EV Batteries Don’t Last Long</p>
-          </div>
-          <div class="flip-card-back" style="background-color: #06D6A0;">
-            <h3>Reality</h3>
-            <p>EV batteries are designed to last 10–20 years and come with warranties of 8–10 years.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Myth 8 -->
-      <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-card-front" style="background-color: #EF476F;">
-            <h2>Myth 8</h2>
-            <p>EVs Can’t Handle Cold Weather</p>
-          </div>
-          <div class="flip-card-back" style="background-color: #FFD166;">
-            <h3>Reality</h3>
-            <p>Modern EVs have features like battery pre-conditioning and heat pumps to handle cold climates.</p>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Myth 9 -->
-      <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-card-front" style="background-color: #118AB2;">
-            <h2>Myth 9</h2>
-            <p>EVs Are Just as Polluting as Gas Cars</p>
-          </div>
-          <div class="flip-card-back" style="background-color: #06D6A0;">
-            <h3>Reality</h3>
-            <p>EVs produce 60–68% fewer emissions over their lifetime compared to gas cars.</p>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Myth 10 -->
-      <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-card-front" style="background-color: #06D6A0;">
-            <h2>Myth 10</h2>
-            <p>EVs Are a Fire Hazard</p>
-          </div>
-          <div class="flip-card-back" style="background-color: #FF6F61;">
-            <h3>Reality</h3>
-            <p>EVs are less likely to catch fire than gas cars, with advanced safety features to prevent fires.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Myth 11 -->
-      <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-card-front" style="background-color: #FFD166;">
-            <h2>Myth 11</h2>
-            <p>EVs Are Heavier and Damage Roads</p>
-          </div>
-          <div class="flip-card-back" style="background-color: #EF476F;">
-            <h3>Reality</h3>
-            <p>EVs are slightly heavier, but road damage is primarily caused by heavy commercial vehicles.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Myth 12 -->
-      <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-card-front" style="background-color: #073B4C;">
-            <h2>Myth 12</h2>
-            <p>EVs Are Just a Trend</p>
-          </div>
-          <div class="flip-card-back" style="background-color: #118AB2;">
-            <h3>Reality</h3>
-            <p>EVs are here to stay, with governments and automakers committing to an electric future.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Quiz Section -->
-    <section class="quiz">
-      <h2>Test Your Understanding</h2>
-      <div class="question">
-        <p>1. What is the range of a Tesla Model S Long Range?</p>
-        <input type="text" id="q1" placeholder="Your answer">
-      </div>
-      <div class="question">
-        <p>2. Why are EVs better for the environment?</p>
-        <input type="text" id="q2" placeholder="Your answer">
-      </div>
-      <div class="question">
-        <p>3. What is the starting price of the Tata Nexon EV in India?</p>
-        <input type="text" id="q3" placeholder="Your answer">
-      </div>
-      <button onclick="checkAnswers()">Submit</button>
-      <p id="result"></p>
-    </section>
-  </main>
-
-  <footer>
-    <p>Created with ❤️ by EV Enthusiasts</p>
-  </footer>
-
-  <script>
-    function checkAnswers() {
-      const q1 = document.getElementById('q1').value.toLowerCase();
-      const q2 = document.getElementById('q2').value.toLowerCase();
-      const q3 = document.getElementById('q3').value.toLowerCase();
-
-      let score = 0;
-
-      if (q1.includes("405")) score++;
-      if (q2.includes("zero tailpipe emissions") || q2.includes("renewable energy")) score++;
-      if (q3.includes("14.49") || q3.includes("14.49 lakh")) score++;
-
-      const result = document.getElementById('result');
-      result.textContent = `You scored ${score} out of 3!`;
-      result.style.color = score === 3 ? "#06D6A0" : "#EF476F";
-    }
-  </script>
+    <footer>
+        <p>© 2025 EV Myth Busters | Powered by facts and sustainable energy ⚡</p>
+    </footer>
 </body>
 </html>
